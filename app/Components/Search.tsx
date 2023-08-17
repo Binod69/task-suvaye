@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { search } from '../../public';
 import Image from 'next/image';
-import Loading from '../loading';
+// import Loading from '../loading';
 
 interface DictionaryResponse {
   word: string;
@@ -20,7 +20,7 @@ const Search = () => {
     useState<DictionaryResponse | null>(null);
   const [selectedTab, setSelectedTab] = useState<string>('noun');
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchData = async () => {
     if (!searchTerm) return;
@@ -38,12 +38,11 @@ const Search = () => {
     setSuggestions([]);
 
     if (value.trim() !== '') {
-      // Simulated suggestions for demonstration
-      setIsLoading(true);
+      // setIsLoading(true);
       const simulatedSuggestions = ['apple', 'banana', 'cherry', 'date'];
       setSuggestions(simulatedSuggestions);
     } else {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
   const handleInputDelete = () => {
