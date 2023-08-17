@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -7,14 +7,40 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    maxWidth: {
+      container: '1440px',
+      contentContainer: '1140px',
+      containerSmall: '1024px',
+      containerxs: '768px',
+    },
+    borderRadius: {
+      footerRadius: '4.6875rem',
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      screens: {
+        xs: '320px',
+        sm: '375px',
+        sml: '500px',
+        md: '667px',
+        mdl: '768px',
+        lg: '960px',
+        lgl: '1024px',
+        xl: '1280px',
+      },
+      colors: {
+        textDark: '#000',
+        footerBg: '#3EBCF7',
+        footerBg2: '#F1F4F7',
       },
     },
   },
-  plugins: [],
-}
-export default config
+
+  plugins: [require('daisyui')],
+  daisyui: {
+    themes: false,
+    darkTheme: 'light',
+    base: false,
+    utils: true,
+  },
+};
+export default config;
