@@ -26,7 +26,7 @@ const Search = () => {
     if (!searchTerm) return;
 
     try {
-      const response = await fetch(`${baseURL}/${searchTerm}`);
+      const response = await fetch(`${baseURL}${searchTerm}`);
       const data = await response.json();
       setDictionaryData(data[0]);
     } catch (error) {
