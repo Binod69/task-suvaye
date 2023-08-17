@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Search from './Components/Search';
+import Loading from './Loading';
+import HomeScreen from './Screen/HomeScreen';
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen items-center ">
-      <Search />
-    </main>
+    <div className="flex flex-col min-h-screen items-center ">
+      <HomeScreen />
+    </div>
   );
 }

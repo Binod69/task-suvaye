@@ -1,9 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import { search } from '../../public';
-import Image from 'next/image';
+import Loading from '../Loading';
 
-interface DictionaryResponse {
+interface DictionaryProps {
   word: string;
   meanings: {
     partOfSpeech: string;
@@ -14,39 +13,40 @@ interface DictionaryResponse {
 const baseURL = process.env.NEXT_PUBLIC_API;
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [dictionaryData, setDictionaryData] =
-    useState<DictionaryResponse | null>(null);
+  const [search, setSearch] = useState<string>('');
+  const [dictionary, setDictionary] = useState<DictionaryProps | null>(null);
   const [selectedTab, setSelectedTab] = useState<string>('noun');
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
-    if (!searchTerm) return;
-
+    if (!search) return;
+    setIsLoading(true);
+    setError(null);
     try {
-      const response = await fetch(`${baseURL}/${searchTerm}`);
+      const response = await fetch(`${baseURL}/${search}`);
       const data = await response.json();
-      setDictionaryData(data[0]);
+      setDictionary(data[0]);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      setError('Error fetching data. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
   const handleInputChange = (value: string) => {
-    setSearchTerm(value);
+    setSearch(value);
     setSuggestions([]);
 
     if (value.trim() !== '') {
-      // setIsLoading(true);
-      const simulatedSuggestions = ['apple', 'banana', 'cherry', 'date'];
+      const simulatedSuggestions = ['apple', 'banana', 'cherry', 'cat', 'dog'];
       setSuggestions(simulatedSuggestions);
     } else {
-      // setIsLoading(false);
     }
   };
   const handleInputDelete = () => {
-    setSearchTerm('');
-    setDictionaryData(null);
+    setSearch('');
+    setDictionary(null);
     setSuggestions([]);
   };
 
@@ -61,7 +61,7 @@ const Search = () => {
           type="text"
           className="input input-bordered w-full  max-w-xs "
           placeholder="search"
-          value={searchTerm}
+          value={search}
           onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -79,14 +79,22 @@ const Search = () => {
           </datalist>
         )}
 
-        {dictionaryData ? (
+        {isLoading ? (
+          <>
+            <Loading />
+          </>
+        ) : error ? (
+          <>
+            <p className="mt-2 text-red-600">{error}</p>
+          </>
+        ) : dictionary ? (
           <div className=" my-10">
             <h2 className="text-2xl font-bold mb-4 sm:text-center lg:text-start">
-              Word: {dictionaryData.word}
+              Word: {dictionary.word}
             </h2>
             <div className="border rounded-cardRadius">
               <div className="flex  p-5">
-                {dictionaryData.meanings.map((meaning, index) => (
+                {dictionary.meanings.map((meaning, index) => (
                   <button
                     key={index}
                     className={`mr-2 py-2 px-4 rounded ${
@@ -101,7 +109,7 @@ const Search = () => {
                 ))}
               </div>
               <article className="p-5">
-                {dictionaryData.meanings.map((meaning, index) => (
+                {dictionary.meanings.map((meaning, index) => (
                   <div
                     key={index}
                     className={`mb-4 ${
@@ -126,9 +134,8 @@ const Search = () => {
             </div>
           </div>
         ) : (
-          <p className="mt-2 text-gray-600">
-            Enter a word to search for definitions. (press Enter to see the
-            results)
+          <p className="mt-2 text-textDark">
+            Enter a word to search. (press Enter to see the results)
           </p>
         )}
       </div>

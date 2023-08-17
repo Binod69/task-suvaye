@@ -6,7 +6,7 @@ import { Navbar, Footer } from './Components';
 const vazirmatn = Vazirmatn({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Suvaye Search',
+  title: 'Suvaye Dictionary',
   description: 'Suvaye Search for Dictionary',
 };
 

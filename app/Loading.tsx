@@ -1,13 +1,17 @@
 const Loading = () => {
   return (
     <>
-      <div className="w-60 h-24 border-2 rounded-md mx-auto mt-20">
-        <div className="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
-          <div className="w-12 bg-gray-300 h-12 rounded-full "></div>
-          <div className="flex flex-col space-y-3">
-            <div className="w-36 bg-gray-300 h-6 rounded-md "></div>
-            <div className="w-24 bg-gray-300 h-6 rounded-md "></div>
-          </div>
+      <div
+        className=" max-w-containerSmall w-full lg:h-64 space-y-5 rounded-cardRadius mt-10 animate-pulse dark:bg-gray-300 p-4 isolate
+    overflow-hidden
+    shadow-xl shadow-black/5
+    before:border-t before:border-rose-100/10"
+      >
+        <div className="h-10 mt-2 rounded-lg dark:bg-gray-200" />
+        <div className="space-y-5">
+          <div className="h-4 w-3/5 rounded-lg dark:bg-gray-200" />
+          <div className="h-4 w-4/5 rounded-lg dark:bg-gray-200" />
+          <div className="h-4 w-2/5 rounded-lg dark:bg-gray-200" />
         </div>
       </div>
     </>
