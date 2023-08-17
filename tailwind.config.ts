@@ -15,6 +15,7 @@ const config: Config = {
     },
     borderRadius: {
       footerRadius: '4.6875rem',
+      cardRadius: '2.1875rem',
     },
     extend: {
       screens: {

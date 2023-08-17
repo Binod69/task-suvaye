@@ -1,11 +1,10 @@
+import Image from 'next/image';
 import Search from './Components/Search';
-import Loading from './Loading';
 
 export default function Home() {
   return (
-    <>
-      <Loading />
+    <main className="flex flex-col min-h-screen items-center ">
       <Search />
-    </>
+    </main>
   );
 }

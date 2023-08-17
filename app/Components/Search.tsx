@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { search } from '../../public';
 import Image from 'next/image';
-// import Loading from '../loading';
 
 interface DictionaryResponse {
   word: string;
@@ -51,18 +50,13 @@ const Search = () => {
     setSuggestions([]);
   };
 
-  // const handleSuggestionClick = (suggestion: string) => {
-  //   setSearchTerm(suggestion);
-  //   fetchData();
-  // };
-
   const handleTabChange = (tab: string) => {
     setSelectedTab(tab);
   };
 
   return (
     <>
-      <div className=" max-w-containerSmall mx-auto">
+      <div className=" max-w-containerSmall w-full mx-auto lg:my-10">
         <input
           type="text"
           className="input input-bordered w-full  max-w-xs "
@@ -86,44 +80,49 @@ const Search = () => {
         )}
 
         {dictionaryData ? (
-          <div className="border rounded-lg my-10">
-            <h2 className="text-2xl font-bold mb-4">{dictionaryData.word}</h2>
-            <div className="flex mb-4">
-              {dictionaryData.meanings.map((meaning, index) => (
-                <button
-                  key={index}
-                  className={`mr-2 py-2 px-4 rounded ${
-                    selectedTab === meaning.partOfSpeech
-                      ? 'bg-textDark text-white'
-                      : 'bg-gray-200 text-gray-700'
-                  }`}
-                  onClick={() => handleTabChange(meaning.partOfSpeech)}
-                >
-                  {meaning.partOfSpeech}
-                </button>
-              ))}
-            </div>
-            <div>
-              {dictionaryData.meanings.map((meaning, index) => (
-                <div
-                  key={index}
-                  className={`mb-4 ${
-                    selectedTab === meaning.partOfSpeech ? '' : 'hidden'
-                  }`}
-                >
-                  <h3 className="text-lg font-semibold mb-2">
+          <div className=" my-10">
+            <h2 className="text-2xl font-bold mb-4 sm:text-center lg:text-start">
+              Word: {dictionaryData.word}
+            </h2>
+            <div className="border rounded-cardRadius">
+              <div className="flex  p-5">
+                {dictionaryData.meanings.map((meaning, index) => (
+                  <button
+                    key={index}
+                    className={`mr-2 py-2 px-4 rounded ${
+                      selectedTab === meaning.partOfSpeech
+                        ? 'bg-textDark text-white'
+                        : 'bg-gray-200 text-gray-700'
+                    }`}
+                    onClick={() => handleTabChange(meaning.partOfSpeech)}
+                  >
                     {meaning.partOfSpeech}
-                  </h3>
-                  <ul>
-                    {meaning.definitions.map((definition, index) => (
-                      <li key={index} className="mb-2">
-                        <p className="text-gray-800">{definition.definition}</p>
-                        <p className="text-gray-600">{definition.example}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                  </button>
+                ))}
+              </div>
+              <article className="p-5">
+                {dictionaryData.meanings.map((meaning, index) => (
+                  <div
+                    key={index}
+                    className={`mb-4 ${
+                      selectedTab === meaning.partOfSpeech ? '' : 'hidden'
+                    }`}
+                  >
+                    <h3 className="text-lg font-semibold mb-2">
+                      {meaning.partOfSpeech}
+                    </h3>
+                    <ul className="list-decimal list-inside">
+                      {meaning.definitions.map((definition, index) => (
+                        <li key={index} className="mb-2">
+                          {definition.definition}
+
+                          {definition.example}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </article>
             </div>
           </div>
         ) : (
